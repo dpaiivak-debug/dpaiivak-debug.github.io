@@ -12,10 +12,11 @@
   <meta property="og:image" content="https://dpaiivak-debug.github.io/og_1200x630.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" />
 
   <style>
     :root{
-      --orange:#FF6A00; --amber:#FFC400; --bg:#0E0E10;
+      --orange:#FF6A00; --amber:#FFC400; --bg:#0E0E10; --mist:#F2F2F2;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:#fff;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
@@ -35,12 +36,14 @@
     .btn{display:inline-block;border:1px solid var(--amber);border-radius:12px;padding:10px 14px;background:rgba(255,255,255,.06);color:#fff;text-decoration:none}
     .btn:hover{background:rgba(255,255,255,.12)}
 
-    /* HERO: sem pseudo-elementos/overlays (nada sobrepõe os botões) */
-    .hero{position:relative; padding:72px 0; background:
-      radial-gradient(80% 60% at 70% 30%, rgba(255,196,0,.18) 0%, rgba(255,106,0,.08) 35%, rgba(14,14,16,0) 65%),
-      linear-gradient(0deg, transparent 0%, transparent 70%, rgba(255,255,255,.08) 100%),
-      repeating-linear-gradient(90deg, rgba(255,196,0,.12) 0 1px, transparent 1px 40px),
-      repeating-linear-gradient(0deg, rgba(255,196,0,.12) 0 1px, transparent 1px 40px);
+    /* HERO sem pseudo-overlays (nada cobre os botões) */
+    .hero{
+      position:relative; padding:72px 0;
+      background:
+        radial-gradient(80% 60% at 70% 30%, rgba(255,196,0,.18) 0%, rgba(255,106,0,.08) 35%, rgba(14,14,16,0) 65%),
+        linear-gradient(0deg, transparent 0%, transparent 70%, rgba(255,255,255,.08) 100%),
+        repeating-linear-gradient(90deg, rgba(255,196,0,.12) 0 1px, transparent 1px 40px),
+        repeating-linear-gradient(0deg, rgba(255,196,0,.12) 0 1px, transparent 1px 40px);
     }
     h1{font-size:clamp(34px,6vw,64px);line-height:1.05;margin:0}
     .accent{background:linear-gradient(90deg,var(--orange),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -52,7 +55,7 @@
       border-radius:16px; padding:12px 16px; text-decoration:none; color:#fff;
       display:inline-flex; align-items:center; position:relative; z-index:2;
     }
-    .cta.secondary{border-color:transparent;background:rgba(255,255,255,.08)}
+    .cta.secondary{border-color:transparent;background:rgba(255,255,255,.10)}
 
     /* Seções */
     section{padding:56px 0;border-top:1px solid rgba(255,255,255,.08)}
@@ -68,9 +71,13 @@
     .step .n{color:var(--amber);font-size:12px}
 
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}@media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .tile{aspect-ratio:4/5;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
+    .tile{aspect-ratio:4/5;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);overflow:hidden}
 
-    /* CTA final: overlay visual não intercepta clique */
+    /* Filtros do portfólio */
+    .pf-btn{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:8px 12px;font-size:12px;cursor:pointer}
+    .pf-btn.active{border-color:var(--amber);background:rgba(255,196,0,.12)}
+
+    /* CTA final (overlay visual não intercepta clique) */
     .final{position:relative}
     .final .panel{border:1px solid rgba(255,196,0,.4);background:rgba(255,255,255,.06);border-radius:22px;padding:26px;text-align:center;position:relative;z-index:2}
     .final .overlay{position:absolute;inset:0;background:linear-gradient(45deg, rgba(255,106,0,.15), rgba(255,196,0,.08)); pointer-events:none; z-index:0;}
@@ -93,14 +100,14 @@
     </div>
   </div>
 
-  <!-- HERO (sem overlays) -->
+  <!-- HERO -->
   <section class="hero">
     <div class="container">
       <h1>Design que <span class="accent">acende</span> marcas.</h1>
       <p class="lead">Identidades visuais e páginas focadas em conversão. Clareza, consistência e prova — sem firula.</p>
 
       <div class="cta-row">
-        <!-- 1º botão: WhatsApp (abre nova aba) -->
+        <!-- 1º botão: WhatsApp -->
         <a id="cta-whats-hero" class="cta"
            href="https://api.whatsapp.com/send/?phone=5566996707924&text=QUERO%20VISUAL&type=phone_number&app_absent=0"
            target="_blank" rel="noopener noreferrer">
@@ -115,6 +122,7 @@
     </div>
   </section>
 
+  <!-- PACOTES -->
   <section id="servicos">
     <div class="container">
       <h2>Pacotes</h2>
@@ -146,6 +154,7 @@
     </div>
   </section>
 
+  <!-- PROCESSO -->
   <section id="processo">
     <div class="container">
       <h2>Como funciona</h2>
@@ -159,17 +168,27 @@
     </div>
   </section>
 
+  <!-- PORTFÓLIO (dinâmico) -->
   <section id="portfolio">
     <div class="container">
       <h2>Portfólio</h2>
       <p class="muted">Alguns resultados e direções de identidade.</p>
-      <div class="grid">
-        <div class="tile"></div><div class="tile"></div><div class="tile"></div>
-        <div class="tile"></div><div class="tile"></div><div class="tile"></div>
+
+      <!-- filtros -->
+      <div class="portfolio-filters" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+        <button class="pf-btn" data-filter="Tudo">Tudo</button>
+        <button class="pf-btn" data-filter="Identidade Visual">Identidade Visual</button>
+        <button class="pf-btn" data-filter="Landing Page">Landing Page</button>
+        <button class="pf-btn" data-filter="Social">Social</button>
+        <button class="pf-btn" data-filter="Direção de Arte">Direção de Arte</button>
       </div>
+
+      <!-- grid -->
+      <div id="portfolio-grid" class="grid" style="margin-top:14px"></div>
     </div>
   </section>
 
+  <!-- FAQ -->
   <section id="faq">
     <div class="container">
       <h2>Perguntas frequentes</h2>
@@ -180,6 +199,7 @@
     </div>
   </section>
 
+  <!-- CTA final -->
   <section id="cta" class="final">
     <div class="overlay" aria-hidden="true"></div>
     <div class="container inner">
@@ -202,18 +222,14 @@
   </footer>
 
   <script>
+    // ano no footer
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    /* Testes mínimos (abra o console e verifique que NÃO quebram) */
-    console.assert(document.querySelector('#cta-whats-hero'), 'Whats CTA inexistente');
-    console.assert(document.querySelector('#cta-pacotes-hero'), 'Pacotes CTA inexistente');
-
-    /* Garantia extra: rolar para #servicos mesmo se âncora for “bloqueada” */
+    // Garantir rolagem para #servicos mesmo se alguma extensão bloquear âncora
     (function () {
       const pacotes = document.getElementById('cta-pacotes-hero');
       if (pacotes) {
         pacotes.addEventListener('click', function (e) {
-          // Se o navegador não rolar automaticamente, força via JS
           const el = document.querySelector('#servicos');
           if (el && el.scrollIntoView) {
             e.preventDefault();
@@ -222,11 +238,61 @@
         }, { passive: false });
       }
     })();
+
+    // ===== PORTFÓLIO DINÂMICO =====
+    async function loadCases() {
+      try {
+        const res = await fetch('cases.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        return Array.isArray(data) ? data : [];
+      } catch (e) {
+        console.warn('cases.json não encontrado; usando fallback.');
+        return [];
+      }
+    }
+
+    function cardHTML(c) {
+      const bg = c.cover ? `url('${c.cover}') center/cover no-repeat` : 'linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.14))';
+      return `
+        <a class="tile" href="#cta" aria-label="${c.title ?? 'Projeto'}"
+           style="background:
+             linear-gradient(180deg, rgba(0,0,0,.0) 40%, rgba(0,0,0,.6) 100%),
+             ${bg};
+             display:block; position:relative;">
+          <div style="position:absolute;left:12px;right:12px;bottom:12px">
+            <div style="font-size:12px;color:rgba(255,255,255,.75)">${c.category ?? ''} ${c.year ? '• '+c.year : ''}</div>
+            <div style="font-weight:700">${c.title ?? 'Projeto'}</div>
+          </div>
+        </a>`;
+    }
+
+    function renderGrid(items) {
+      const grid = document.getElementById('portfolio-grid');
+      grid.innerHTML = items.map(cardHTML).join('');
+    }
+
+    function setupFilters(all) {
+      const btns = Array.from(document.querySelectorAll('.pf-btn'));
+      function setActive(f) {
+        btns.forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+        const filtered = (f === 'Tudo') ? all : all.filter(x => x.category === f);
+        renderGrid(filtered);
+      }
+      btns.forEach(b => b.addEventListener('click', () => setActive(b.dataset.filter)));
+      setActive('Tudo');
+    }
+
+    (async function initPortfolio(){
+      const data = await loadCases();
+      // se não houver cases.json, usa um fallback vazio (grid não quebra)
+      setupFilters(data);
+    })();
+
+    // Testes mínimos no console
+    console.assert(document.querySelector('#cta-whats-hero'), 'Whats CTA inexistente');
+    console.assert(document.querySelector('#cta-pacotes-hero'), 'Pacotes CTA inexistente');
   </script>
 </body>
 </html>
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="48" height="48" rx="10" fill="#0E0E10"/>
-  <path d="M18 10 H30 L24 22 H32 L18 38 L22 26 H16 L18 10Z" fill="#FFC400"/>
-</svg>
 

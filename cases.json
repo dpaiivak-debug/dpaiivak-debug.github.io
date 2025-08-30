@@ -1,0 +1,119 @@
+[
+  {
+    "slug": "noxfit",
+    "title": "NoxFit — Identidade Visual",
+    "client": "NoxFit",
+    "year": 2025,
+    "category": "Identidade Visual",
+    "cover": "assets/portfolio/noxfit/cover.webp",
+    "palette": [
+      "#0E0E10",
+      "#FFC400",
+      "#FF6A00",
+      "#E8E8E8"
+    ],
+    "deliverables": [
+      "Logo",
+      "Paleta",
+      "Tipografia",
+      "Manual 8p"
+    ],
+    "summary": "Marca enérgica para academia focada em treinos noturnos."
+  },
+  {
+    "slug": "cafe-aurora",
+    "title": "Café Aurora — Rebrand",
+    "client": "Café Aurora",
+    "year": 2025,
+    "category": "Identidade Visual",
+    "cover": "assets/portfolio/cafe-aurora/cover.webp",
+    "palette": [
+      "#1A1A1E",
+      "#FFC400",
+      "#C57B57",
+      "#F8F5F2"
+    ],
+    "deliverables": [
+      "Logo",
+      "Rótulos",
+      "Social Kit"
+    ],
+    "summary": "Visual caloroso com acentos âmbar, inspirado no amanhecer."
+  },
+  {
+    "slug": "vilatech",
+    "title": "VilaTech — One-page",
+    "client": "VilaTech",
+    "year": 2025,
+    "category": "Landing Page",
+    "cover": "assets/portfolio/vilatech/cover.webp",
+    "palette": [
+      "#0E0E10",
+      "#FF6A00",
+      "#FFC400",
+      "#EFEFEF"
+    ],
+    "deliverables": [
+      "One-page",
+      "CRO básico"
+    ],
+    "summary": "Landing com foco em conversão para SaaS local."
+  },
+  {
+    "slug": "solaris",
+    "title": "Solaris — Direção Visual",
+    "client": "Solaris Energia",
+    "year": 2024,
+    "category": "Direção de Arte",
+    "cover": "assets/portfolio/solaris/cover.webp",
+    "palette": [
+      "#0D0F14",
+      "#FFC400",
+      "#FFE399",
+      "#C9D6EA"
+    ],
+    "deliverables": [
+      "Moodboard",
+      "Guia de tom"
+    ],
+    "summary": "Direção clean com ícones mono e grid técnico."
+  },
+  {
+    "slug": "lume-studio",
+    "title": "Lume Studio — Kit Social",
+    "client": "Lume Studio",
+    "year": 2024,
+    "category": "Social",
+    "cover": "assets/portfolio/lume-studio/cover.webp",
+    "palette": [
+      "#0E0E10",
+      "#FF6A00",
+      "#FFC400",
+      "#FFFFFF"
+    ],
+    "deliverables": [
+      "12 posts",
+      "8 stories"
+    ],
+    "summary": "Pacote social com variações de layout e tipografia."
+  },
+  {
+    "slug": "orion-barbers",
+    "title": "Orion Barbers — Identidade",
+    "client": "Orion Barbers",
+    "year": 2024,
+    "category": "Identidade Visual",
+    "cover": "assets/portfolio/orion-barbers/cover.webp",
+    "palette": [
+      "#0E0E10",
+      "#FFC400",
+      "#BFBFBF",
+      "#FFFFFF"
+    ],
+    "deliverables": [
+      "Logo",
+      "Manual 6p"
+    ],
+    "summary": "Minimal premium com contraste alto, foco em legibilidade."
+  }
+]

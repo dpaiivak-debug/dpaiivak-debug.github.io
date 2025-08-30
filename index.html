@@ -21,6 +21,16 @@
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--carbon);color:#fff;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+/* === NUCLEAR CLICK-FIX (Chrome) === */
+/* No HERO, todo mundo perde eventos, exceto links/botões */
+.hero * { pointer-events: none !important; }
+.hero a, .hero button {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 9999;            /* acima de qualquer overlay */
+  display: inline-flex;
+  align-items: center;
+}
 
     /* navegação suave + compensar topo sticky */
     html { scroll-behavior: smooth; }
@@ -216,6 +226,20 @@
   </script>
 </body>
 </html>
+<script>
+  // Garantir navegação para #servicos mesmo que o anchor seja bloqueado
+  (function () {
+    const pacotes = document.getElementById('cta-pacotes-hero');
+    if (pacotes) {
+      pacotes.addEventListener('click', function (e) {
+        e.preventDefault();
+        const el = document.querySelector('#servicos');
+        if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        else location.hash = '#servicos';
+      }, { passive: false });
+    }
+  })();
+</script>
 
 
 

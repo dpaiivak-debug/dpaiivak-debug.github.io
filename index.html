@@ -21,6 +21,17 @@
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--carbon);color:#fff;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+/* --- HARD FIX de clique (Chrome) --- */
+.hero, .hero * { pointer-events: auto; }
+
+.hero .cta-row,
+.hero .cta-row a {
+  position: relative;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+  display: inline-flex;
+  align-items: center;
+}
 
     /* navegação suave + compensar topo sticky */
     html { scroll-behavior: smooth; }
@@ -212,6 +223,34 @@
   </script>
 </body>
 </html>
+<script>
+  // Hard-fix dos CTAs do HERO no Chrome
+  (function () {
+    const whats = document.getElementById('cta-whats-hero');
+    const pacotes = document.getElementById('cta-pacotes-hero');
+
+    if (whats) {
+      whats.addEventListener('click', function (e) {
+        // força abrir em nova aba com noopener
+        window.open('https://wa.me/5566996707924?text=QUERO%20VISUAL', '_blank', 'noopener');
+      }, { passive: true });
+    }
+
+    if (pacotes) {
+      pacotes.addEventListener('click', function (e) {
+        // força rolar até a seção (em vez de depender do anchor)
+        e.preventDefault();
+        const el = document.querySelector('#servicos');
+        if (el && el.scrollIntoView) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          // fallback
+          location.hash = '#servicos';
+        }
+      }, { passive: false });
+    }
+  })();
+</script>
 
 
 

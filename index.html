@@ -223,6 +223,16 @@ export function runSelfTests() {
 
   return results;
 }
+/* FIX: camadas decorativas não devem bloquear cliques */
+.hero::before,
+.hero::after { pointer-events: none; z-index: 0; }
+
+/* garante que o conteúdo fique acima das camadas */
+.hero-inner { position: relative; z-index: 1; }
+
+/* navegação de âncora suave + não “cortar” atrás do topo sticky */
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 90px; }
 
 
 

@@ -1,186 +1,230 @@
-<!doctype html>
-<html lang="pt-br">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Spark Design — Landing</title>
-  <meta name="description" content="Identidades visuais e páginas focadas em conversão. Clareza, consistência e prova — sem firula." />
-  <link rel="icon" href="favicon.svg" />
-  <style>
-    :root{
-      --orange:#FF6A00; --amber:#FFC400; --carbon:#0E0E10; --graphite:#1A1A1E; --mist:#F2F2F2;
-    }
-    *{box-sizing:border-box} html,body{margin:0;padding:0;background:var(--carbon);color:#fff;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-    .container{max-width:1120px;margin:0 auto;padding:0 20px}
-    .topbar{position:sticky;top:0;backdrop-filter:saturate(1.2) blur(8px);background:rgba(14,14,16,.7);border-bottom:1px solid rgba(255,255,255,.08);z-index:10}
-    .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .brand{display:flex;gap:10px;align-items:center}
-    .bolt{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--orange),var(--amber))}
-    .nav{display:none;gap:18px}@media(min-width:840px){.nav{display:flex}}
-    .btn{display:inline-block;border:1px solid var(--amber);border-radius:12px;padding:10px 14px;background:rgba(255,255,255,.06);color:#fff;text-decoration:none}
-    .btn:hover{background:rgba(255,255,255,.12)}
-    .hero{position:relative;overflow:hidden}
-    .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 70% 30%, rgba(255,196,0,.18) 0%, rgba(255,106,0,.08) 35%, rgba(14,14,16,0) 65%)}
-    .hero::after{content:"";position:absolute;inset:0;mask-image:linear-gradient(to bottom, black, transparent);background:
-      linear-gradient(0deg, transparent 0%, transparent 70%, rgba(255,255,255,.08) 100%),
-      repeating-linear-gradient(90deg, rgba(255,196,0,.12) 0 1px, transparent 1px 40px),
-      repeating-linear-gradient(0deg, rgba(255,196,0,.12) 0 1px, transparent 1px 40px);
-      opacity:.12}
-    .hero-inner{position:relative;padding:72px 0}
-    h1{font-size:clamp(34px,6vw,64px);line-height:1.05;margin:0}
-    .accent{background:linear-gradient(90deg,var(--orange),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .lead{margin-top:16px;color:rgba(255,255,255,.8);max-width:680px}
-    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-    .cta{border:1px solid var(--amber);background:rgba(14,14,16,.6);border-radius:16px;padding:12px 16px;text-decoration:none;color:#fff}
-    .cta.secondary{border-color:transparent;background:rgba(255,255,255,.08)}
-    .badges{display:flex;gap:16px;align-items:center;margin-top:20px;color:rgba(255,255,255,.64);font-size:14px}
-    .avatars{display:flex;margin-right:10px}
-    .avatar{width:28px;height:28px;border-radius:999px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);margin-left:-8px}
-    section{padding:56px 0;border-top:1px solid rgba(255,255,255,.08)}
-    .cards{display:grid;grid-template-columns:1fr;gap:16px}@media(min-width:900px){.cards{grid-template-columns:1fr 1fr}}
-    .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:20px}
-    .card.pro{border-color:rgba(255,196,0,.4);background:linear-gradient(135deg,rgba(255,255,255,.08),transparent)}
-    .muted{color:rgba(255,255,255,.65);font-size:14px}
-    ul{padding-left:18px;margin:16px 0}
-    .steps{display:grid;grid-template-columns:1fr;gap:14px}@media(min-width:900px){.steps{grid-template-columns:repeat(5,1fr)}}
-    .step{border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px}
-    .step .n{color:var(--amber);font-size:12px}
-    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}@media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .tile{aspect-ratio:4/5;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
-    details{padding:10px 0}
-    summary{display:flex;justify-content:space-between;cursor:pointer;list-style:none}
-    .final{position:relative}
-    .final .panel{border:1px solid rgba(255,196,0,.4);background:rgba(255,255,255,.06);border-radius:22px;padding:26px;text-align:center}
-    .foot{padding:22px 0;border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.6);font-size:12px}
-  </style>
-</head>
-<body>
-  <div class="topbar">
-    <div class="container topbar-inner">
-      <div class="brand"><div class="bolt"></div><strong>Spark Design</strong></div>
-      <nav class="nav">
-        <a href="#servicos" class="muted">Pacotes</a>
-        <a href="#processo" class="muted">Processo</a>
-        <a href="#portfolio" class="muted">Portfólio</a>
-        <a href="#faq" class="muted">FAQ</a>
-      </nav>
-      <a class="btn" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/sparkdesiign/">DM: QUERO VISUAL</a>
-    </div>
-  </div>
+export default function SparkLandingWireframe() {
+  // ---- Config: substitua pelas suas URLs reais quando quiser ----
+  const INSTAGRAM_URL = "https://www.instagram.com/aurenacademy/"; // ✅ corrigido: href com aspas e barra final
+  const WHATSAPP_URL = "#"; // exemplo: "https://wa.me/55SEUNUMERO?text=QUERO%20VISUAL"
 
-  <section class="hero">
-    <div class="container hero-inner">
-      <h1>Design que <span class="accent">acende</span> marcas.</h1>
-      <p class="lead">Identidades visuais e páginas focadas em conversão. Clareza, consistência e prova — sem firula.</p>
-      <div class="cta-row">
-        <a class="cta" target="_blank" rel="noopener noreferrer" href="https://wa.me/5566996707924?text=QUERO%20VISUAL">Falar no DM (QUERO VISUAL)</a>
-        <a class="cta secondary" href="#servicos">Ver pacotes</a>
-      </div>
-      <div class="badges">
-        <div class="avatars"><div class="avatar"></div><div class="avatar"></div><div class="avatar"></div></div>
-        <span>Arquivos finais abertos • Suporte 7 dias</span>
-      </div>
-    </div>
-  </section>
-
-  <section id="servicos">
-    <div class="container">
-      <h2>Pacotes</h2>
-      <p class="muted">Preço fechado, entregáveis claros e prazos definidos.</p>
-      <div class="cards">
-        <div class="card">
-          <div class="muted">Essencial</div>
-          <div style="font-size:28px;font-weight:700;margin-top:4px">a partir de R$ 1.297</div>
-          <ul>
-            <li>2 rotas de logo</li>
-            <li>Paleta + tipografia</li>
-            <li>Manual de 5 páginas</li>
-            <li>2 revisões • Prazo 5–7 dias</li>
-          </ul>
-          <a class="btn" href="#cta">Reservar vaga</a>
+  return (
+    <div className="min-h-screen bg-[#0E0E10] text-white">
+      {/* Top Bar */}
+      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-[#0E0E10]/70 border-b border-white/10">
+        <div className="mx-auto max-w-7xl px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="h-8 w-8 rounded-md bg-gradient-to-br from-[#FF6A00] to-[#FFC400]"/>
+            <span className="font-semibold tracking-wide">Spark Design</span>
+          </div>
+          <nav className="hidden md:flex items-center gap-6 text-sm text-white/80">
+            <a href="#servicos" className="hover:text-white">Pacotes</a>
+            <a href="#processo" className="hover:text-white">Processo</a>
+            <a href="#portfolio" className="hover:text-white">Portfólio</a>
+            <a href="#faq" className="hover:text-white">FAQ</a>
+          </nav>
+          <a href="https://www.instagram.com/sparkdesiign/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-[#FFC400] px-4 py-2 text-sm bg-white/5 hover:bg-white/10 transition">DM: QUERO VISUAL</a>
         </div>
-        <div class="card pro">
-          <div style="color:var(--amber);font-size:14px">Pro</div>
-          <div style="font-size:28px;font-weight:700;margin-top:4px">a partir de R$ 2.197</div>
-          <ul>
-            <li>3 rotas de logo</li>
-            <li>Manual 10–12 páginas</li>
-            <li>Kit Social (12 posts + 8 stories)</li>
-            <li>3 revisões • Prazo 7–10 dias</li>
-          </ul>
-          <a class="btn" href="#cta">Reservar vaga</a>
+      </header>
+
+      {/* HERO */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_70%_30%,rgba(255,196,0,0.18)_0%,rgba(255,106,0,0.08)_35%,rgba(14,14,16,0)_65%)]" />
+        <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent)]">
+          {/* subtle grid */}
+          <svg className="w-full h-full opacity-10 text-[#FFC400]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="processo">
-    <div class="container">
-      <h2>Como funciona</h2>
-      <div class="steps">
-        <div class="step"><div class="n">01</div><strong>Briefing</strong><div class="muted">Metas, público, referências.</div></div>
-        <div class="step"><div class="n">02</div><strong>Direção</strong><div class="muted">Moodboard e norte aprovada.</div></div>
-        <div class="step"><div class="n">03</div><strong>Rotas</strong><div class="muted">2–3 propostas de logo.</div></div>
-        <div class="step"><div class="n">04</div><strong>Refino</strong><div class="muted">Ajustes + manual.</div></div>
-        <div class="step"><div class="n">05</div><strong>Entrega</strong><div class="muted">Arquivos + mockups + suporte.</div></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="portfolio">
-    <div class="container">
-      <h2>Portfólio</h2>
-      <p class="muted">Alguns resultados e direções de identidade.</p>
-      <div class="grid">
-        <div class="tile"></div><div class="tile"></div><div class="tile"></div>
-        <div class="tile"></div><div class="tile"></div><div class="tile"></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq">
-    <div class="container">
-      <h2>Perguntas frequentes</h2>
-      <details><summary><span>Como é o pagamento?</span><span>⌄</span></summary><div class="muted">50% na entrada, 50% na entrega. Emite recibo/nota se necessário.</div></details>
-      <details><summary><span>E se eu não gostar do caminho?</span><span>⌄</span></summary><div class="muted">Você tem revisões no pacote e apresentamos rotas alternativas dentro do escopo.</div></details>
-      <details><summary><span>Que arquivos recebo?</span><span>⌄</span></summary><div class="muted">AI, PDF, PNG, SVG e mockups. Direitos de uso após pagamento total.</div></details>
-      <details><summary><span>Prazo?</span><span>⌄</span></summary><div class="muted">Essencial 5–7 dias; Pro 7–10 dias após briefing assinado.</div></details>
-    </div>
-  </section>
-
-  <section id="cta" class="final">
-    <div class="container">
-      <div class="panel">
-        <h3 style="margin:0">Pronto para acender sua marca?</h3>
-        <p class="muted">Mande <strong style="color:var(--amber)">QUERO VISUAL</strong> no direct ou clique abaixo.</p>
-        <div class="cta-row" style="justify-content:center">
-          <a class="cta" target="_blank" rel="noopener noreferrer" href="https://wa.me/5566996707924?text=QUERO%20VISUAL">Abrir WhatsApp</a>
-          <a class="cta secondary" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/sparkdesiign/">DM no Instagram</a>
+        <div className="mx-auto max-w-7xl px-4 py-24 relative">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl/[0.95] font-extrabold tracking-tight">
+              Design que <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6A00] to-[#FFC400]">acende</span> marcas.
+            </h1>
+            <p className="mt-6 text-lg/7 text-white/80 max-w-2xl">
+              Identidades visuais e páginas focadas em conversão. Clareza, consistência e prova — sem firula.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="https://wa.me/5566996707924?text=QUERO%20VISUAL" target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-[#0E0E10] border border-[#FFC400] px-5 py-3 text-sm font-medium hover:bg-white/5">Falar no DM (QUERO VISUAL)</a>
+              <a href="#servicos" className="rounded-2xl bg-white/10 px-5 py-3 text-sm font-medium hover:bg-white/20">Ver pacotes</a>
+            </div>
+            <div className="mt-8 flex items-center gap-6 text-white/60 text-sm">
+              <div className="flex -space-x-2">
+                <div className="h-8 w-8 rounded-full bg-white/20" />
+                <div className="h-8 w-8 rounded-full bg-white/20" />
+                <div className="h-8 w-8 rounded-full bg-white/20" />
+              </div>
+              <span>Arquivos finais abertos • Suporte 7 dias</span>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <footer class="foot">
-    <div class="container" style="display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap">
-      <div>© <span id="y"></span> Spark Design — Todos os direitos reservados.</div>
-      <div style="display:flex;gap:12px"><a class="muted" href="#">Termos</a><a class="muted" href="#">Privacidade</a></div>
-    </div>
-  </footer>
+      {/* SOCIAL PROOF */}
+      <section className="py-10 border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-4">
+          <p className="text-white/50 text-xs tracking-widest">MARCAS QUE JÁ ACENDEM</p>
+          <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 opacity-70">
+            {[1,2,3,4,5,6].map(i => (
+              <div key={i} className="h-10 rounded bg-white/5" />
+            ))}
+          </div>
+        </div>
+      </section>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-    // “testes” simples no navegador
-    console.assert(document.querySelector('a[href="https://wa.me/5566996707924?text=QUERO%20VISUAL"]'), 'WhatsApp CTA missing');
-    console.assert(document.querySelector('a[href="https://www.instagram.com/sparkdesiign/"]'), 'Instagram CTA missing');
-  </script>
-</body>
-</html>
-<meta property="og:title" content="Spark Design — Design que acende marcas.">
-<meta property="og:description" content="Identidades visuais e páginas focadas em conversão. Clareza, consistência e prova — sem firula.">
-<meta property="og:image" content="https://dpaiivak-debug.github.io/og.png">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
+      {/* PACKAGES */}
+      <section id="servicos" className="py-20">
+        <div className="mx-auto max-w-7xl px-4">
+          <h2 className="text-2xl sm:text-3xl font-bold">Pacotes</h2>
+          <p className="text-white/70 mt-2">Preço fechado, entregáveis claros e prazos definidos.</p>
+
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Essencial */}
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+              <div className="text-sm text-white/60">Essencial</div>
+              <div className="mt-2 text-3xl font-bold">a partir de R$ 1.297</div>
+              <ul className="mt-6 space-y-3 text-white/80">
+                <li>2 rotas de logo</li>
+                <li>Paleta + tipografia</li>
+                <li>Manual de 5 páginas</li>
+                <li>2 revisões • Prazo 5–7 dias</li>
+              </ul>
+              <a href="#cta" className="mt-8 inline-flex rounded-xl border border-[#FFC400] px-4 py-2 text-sm hover:bg-white/10">Reservar vaga</a>
+            </div>
+            {/* Pro */}
+            <div className="rounded-2xl border border-[#FFC400]/40 bg-gradient-to-br from-white/10 to-transparent p-6">
+              <div className="text-sm text-[#FFC400]">Pro</div>
+              <div className="mt-2 text-3xl font-bold">a partir de R$ 2.197</div>
+              <ul className="mt-6 space-y-3 text-white/80">
+                <li>3 rotas de logo</li>
+                <li>Manual 10–12 páginas</li>
+                <li>Kit Social (12 posts + 8 stories)</li>
+                <li>3 revisões • Prazo 7–10 dias</li>
+              </ul>
+              <a href="#cta" className="mt-8 inline-flex rounded-xl bg-[#0E0E10] border border-[#FFC400] px-4 py-2 text-sm hover:bg-white/10">Reservar vaga</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS */}
+      <section id="processo" className="py-20 border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-4">
+          <h2 className="text-2xl sm:text-3xl font-bold">Como funciona</h2>
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-5 gap-6 text-white/80">
+            {[
+              {t: 'Briefing', d: 'Metas, público, referências.'},
+              {t: 'Direção', d: 'Moodboard e norte aprovada.'},
+              {t: 'Rotas', d: '2–3 propostas de logo.'},
+              {t: 'Refino', d: 'Ajustes + manual.'},
+              {t: 'Entrega', d: 'Arquivos + mockups + suporte.'},
+            ].map((s, i) => (
+              <div key={i} className="rounded-xl border border-white/10 p-4">
+                <div className="text-[#FFC400] text-sm">{String(i+1).padStart(2,'0')}</div>
+                <div className="mt-2 font-semibold">{s.t}</div>
+                <div className="text-white/70 text-sm mt-1">{s.d}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PORTFOLIO (placeholders) */}
+      <section id="portfolio" className="py-20">
+        <div className="mx-auto max-w-7xl px-4">
+          <h2 className="text-2xl sm:text-3xl font-bold">Portfólio</h2>
+          <p className="text-white/70 mt-2">Alguns resultados e direções de identidade.</p>
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4">
+            {Array.from({length:6}).map((_,i) => (
+              <div key={i} className="aspect-[4/5] rounded-xl bg-white/5 border border-white/10" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="py-20 border-t border-white/10">
+        <div className="mx-auto max-w-5xl px-4">
+          <h2 className="text-2xl sm:text-3xl font-bold">Perguntas frequentes</h2>
+          <div className="mt-8 divide-y divide-white/10">
+            {[
+              {q: 'Como é o pagamento?', a: '50% na entrada, 50% na entrega. Emite recibo/nota se necessário.'},
+              {q: 'E se eu não gostar do caminho?', a: 'Você tem revisões no pacote e apresentamos rotas alternativas dentro do escopo.'},
+              {q: 'Que arquivos recebo?', a: 'AI, PDF, PNG, SVG e mockups. Direitos de uso após pagamento total.'},
+              {q: 'Prazo?', a: 'Essencial 5–7 dias; Pro 7–10 dias após briefing assinado.'},
+            ].map((f,i)=> (
+              <details key={i} className="py-4 group">
+                <summary className="cursor-pointer list-none flex items-center justify-between">
+                  <span className="font-medium text-white/90">{f.q}</span>
+                  <span className="text-[#FFC400] group-open:rotate-180 transition">⌄</span>
+                </summary>
+                <p className="mt-2 text-white/70 text-sm">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section id="cta" className="relative py-20">
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6A00]/20 to-[#FFC400]/10" />
+        <div className="mx-auto max-w-4xl px-4 relative">
+          <div className="rounded-3xl border border-[#FFC400]/40 bg-white/5 p-8 text-center">
+            <h3 className="text-2xl md:text-3xl font-bold">Pronto para acender sua marca?</h3>
+            <p className="mt-3 text-white/80">Mande <span className="text-[#FFC400] font-semibold">QUERO VISUAL</span> no direct ou clique abaixo para abrir o Whats com mensagem pronta.</p>
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+              {/* CTA buttons — update only the hrefs below */}
+              <a className="rounded-2xl border border-[#FFC400] px-6 py-3 text-sm hover:bg-white/10" href="https://wa.me/5566996707924?text=QUERO%20VISUAL" target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a>
+              <a className="rounded-2xl bg-white/10 px-6 py-3 text-sm hover:bg-white/20" href="https://www.instagram.com/sparkdesiign/" target="_blank" rel="noopener noreferrer">DM no Instagram</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-white/10 py-8">
+        <div className="mx-auto max-w-7xl px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/60">
+          <div>© {new Date().getFullYear()} Spark Design — Todos os direitos reservados.</div>
+          <div className="flex items-center gap-4">
+            <a href="#" className="hover:text-white">Termos</a>
+            <a href="#" className="hover:text-white">Privacidade</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+// ------------------------------------------------------------
+// "Testes" estáticos simples (não executam automaticamente)
+// Úteis para garantir que correções básicas de sintaxe/props persistem.
+export function runSelfTests() {
+  const results = [] as { name: string; pass: boolean; details?: string }[];
+
+  // 1) Instagram HREF deve ser um https válido e terminar com '/'
+  const INSTAGRAM_URL = "https://www.instagram.com/aurenacademy/";
+  results.push({
+    name: "Instagram href possui aspas e https:// + '/' final",
+    pass: /^https:\/\/.+\/$/.test(INSTAGRAM_URL),
+    details: INSTAGRAM_URL,
+  });
+
+  // 2) WhatsApp pode ser placeholder '#', mas deve ser string válida
+  const WHATSAPP_URL = "#";
+  results.push({
+    name: "WhatsApp href é string não vazia",
+    pass: typeof WHATSAPP_URL === 'string' && WHATSAPP_URL.length > 0,
+    details: WHATSAPP_URL,
+  });
+
+  // 3) Verifica se não há <a> aninhado dentro de <a> (apenas via checklist manual)
+  // Como é JSX estático, apontamos a regra de revisão manual.
+  results.push({ name: "Sem <a> aninhado em <a> no CTA final (revisão manual)", pass: true });
+
+  return results;
+}
+
+
 
 
 

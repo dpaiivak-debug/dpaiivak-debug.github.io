@@ -168,11 +168,89 @@
     </div>
   </section>
 
-  <!-- PORTFÓLIO (dinâmico) -->
-  <section id="portfolio">
-    <div class="container">
-      <h2>Portfólio</h2>
-      <p class="muted">Alguns resultados e direções de identidade.</p>
+  <script>
+  // ===== PORTFÓLIO DINÂMICO (com diagnóstico) =====
+  async function loadCases() {
+    try {
+      const res = await fetch('cases.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      return Array.isArray(data) ? data : [];
+    } catch (e) {
+      setPFStatus('Não consegui carregar o cases.json (' + (e.message || e) + ').');
+      return [];
+    }
+  }
+
+  function setPFStatus(msg) {
+    const el = document.getElementById('pf-status');
+    if (el) el.textContent = msg;
+  }
+
+  function cardHTML(c) {
+    const hasCover = !!c.cover;
+    const bg = hasCover
+      ? `url('${c.cover}') center/cover no-repeat`
+      : 'linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.14))';
+    return `
+      <a class="tile" href="#cta" aria-label="${c.title ?? 'Projeto'}"
+         style="background:
+           linear-gradient(180deg, rgba(0,0,0,.0) 40%, rgba(0,0,0,.6) 100%),
+           ${bg};
+           display:block; position:relative;">
+        <div style="position:absolute;left:12px;right:12px;bottom:12px">
+          <div style="font-size:12px;color:rgba(255,255,255,.75)">${c.category ?? ''} ${c.year ? '• '+c.year : ''}</div>
+          <div style="font-weight:700">${c.title ?? 'Projeto'}</div>
+          ${hasCover ? '' : '<div style="font-size:11px;color:rgba(255,255,255,.6)">capa ausente</div>'}
+        </div>
+      </a>`;
+  }
+
+  function renderGrid(items) {
+    const grid = document.getElementById('portfolio-grid');
+    grid.innerHTML = items.map(cardHTML).join('');
+  }
+
+  function setupFilters(all) {
+    const btns = Array.from(document.querySelectorAll('.pf-btn'));
+    function setActive(f) {
+      btns.forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+      const filtered = (f === 'Tudo') ? all : all.filter(x => x.category === f);
+      renderGrid(filtered);
+    }
+    btns.forEach(b => b.addEventListener('click', () => setActive(b.dataset.filter)));
+    setActive('Tudo');
+  }
+
+  function validateImages(items) {
+    // testa as capas e devolve os slugs que falharam
+    return Promise.all(items.map(it => new Promise(resolve => {
+      if (!it.cover) return resolve({ slug: it.slug, ok: false });
+      const img = new Image();
+      img.onload  = () => resolve({ slug: it.slug, ok: true });
+      img.onerror = () => resolve({ slug: it.slug, ok: false });
+      img.src = it.cover + (it.cover.includes('?') ? '&' : '?') + 'v=' + Date.now(); // bust cache
+    }))).then(res => res.filter(r => !r.ok).map(r => r.slug));
+  }
+
+  (async function initPortfolio(){
+    const data = await loadCases();
+    if (!data.length) {
+      setPFStatus('Nenhum projeto carregado. Confere se `cases.json` está na raiz e se os caminhos das capas batem.');
+      renderGrid([]); return;
+    }
+    setPFStatus('Carregando capas…');
+
+    const broken = await validateImages(data);
+    const safe = data.map(c => broken.includes(c.slug) ? { ...c, cover: null } : c);
+
+    const info = `Carregados ${data.length} projetos` + (broken.length ? ` • ${broken.length} capa(s) ausente(s): ${broken.join(', ')}` : '');
+    setPFStatus(info);
+
+    setupFilters(safe);
+  })();
+</script>
+
 
       <!-- filtros -->
       <div class="portfolio-filters" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">

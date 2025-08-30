@@ -21,6 +21,38 @@
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--carbon);color:#fff;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+/* --- FIX GLOBAL DE CLIQUE --- */
+
+/* 1) camadas decorativas não podem capturar eventos */
+.hero::before,
+.hero::after,
+.final .overlay {
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* 2) garanta que o conteúdo (textos/botões) esteja acima */
+.hero, .final { position: relative; isolation: isolate; } /* novo stacking context */
+.hero-inner,
+.final .inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* 3) CTAs e links SEMPRE clicáveis, acima de overlays */
+.cta-row a,
+.card a,
+.topbar a,
+nav a {
+  position: relative;
+  z-index: 3;
+  display: inline-flex; /* amplia hit-area */
+  align-items: center;
+}
+
+/* 4) rolagem suave e compensação da barra fixa */
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 90px; }
 
     /* navegação suave + compensar topo sticky */
     html { scroll-behavior: smooth; }

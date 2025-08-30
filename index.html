@@ -21,17 +21,6 @@
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--carbon);color:#fff;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
-/* --- HARD FIX de clique (Chrome) --- */
-.hero, .hero * { pointer-events: auto; }
-
-.hero .cta-row,
-.hero .cta-row a {
-  position: relative;
-  z-index: 9999 !important;
-  pointer-events: auto !important;
-  display: inline-flex;
-  align-items: center;
-}
 
     /* navegação suave + compensar topo sticky */
     html { scroll-behavior: smooth; }
@@ -46,30 +35,36 @@
     .btn{display:inline-block;border:1px solid var(--amber);border-radius:12px;padding:10px 14px;background:rgba(255,255,255,.06);color:#fff;text-decoration:none}
     .btn:hover{background:rgba(255,255,255,.12)}
 
-    /* --- HERO --- */
-    .hero{position:relative;overflow:hidden;isolation:isolate;} /* cria stacking context */
-    /* overlays NÃO capturam clique */
-    .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 70% 30%, rgba(255,196,0,.18) 0%, rgba(255,106,0,.08) 35%, rgba(14,14,16,0) 65%); pointer-events:none; z-index:0;}
-    .hero::after{content:"";position:absolute;inset:0;mask-image:linear-gradient(to bottom, black, transparent);background:
-      linear-gradient(0deg, transparent 0%, transparent 70%, rgba(255,255,255,.08) 100%),
-      repeating-linear-gradient(90deg, rgba(255,196,0,.12) 0 1px, transparent 1px 40px),
-      repeating-linear-gradient(0deg, rgba(255,196,0,.12) 0 1px, transparent 1px 40px);
-      opacity:.12; pointer-events:none; z-index:0;
+    /* --- HERO sem overlays (tudo vira background) --- */
+    .hero{
+      position:relative; overflow:hidden; isolation:isolate;
+      /* Glow + grade em camadas (NADA cobre os botões) */
+      background:
+        radial-gradient(80% 60% at 70% 30%, rgba(255,196,0,.18) 0%, rgba(255,106,0,.08) 35%, rgba(14,14,16,0) 65%),
+        linear-gradient(0deg, transparent 0%, transparent 70%, rgba(255,255,255,.08) 100%),
+        repeating-linear-gradient(90deg, rgba(255,196,0,.12) 0 1px, transparent 1px 40px),
+        repeating-linear-gradient(0deg, rgba(255,196,0,.12) 0 1px, transparent 1px 40px);
+      background-blend-mode: normal;
     }
-    .hero-inner{position:relative;z-index:2;padding:72px 0}
-
+    .hero-inner{position:relative;z-index:1;padding:72px 0}
     h1{font-size:clamp(34px,6vw,64px);line-height:1.05;margin:0}
     .accent{background:linear-gradient(90deg,var(--orange),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
     .lead{margin-top:16px;color:rgba(255,255,255,.8);max-width:680px}
+
     .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-    .cta{border:1px solid var(--amber);background:rgba(14,14,16,.6);border-radius:16px;padding:12px 16px;text-decoration:none;color:#fff}
+    .cta{
+      border:1px solid var(--amber);background:rgba(14,14,16,.6);
+      border-radius:16px;padding:12px 16px;text-decoration:none;color:#fff;
+      position:relative; z-index:9999; display:inline-flex; align-items:center;
+    }
     .cta.secondary{border-color:transparent;background:rgba(255,255,255,.08)}
-    .cta-hero{position:relative;z-index:3;display:inline-flex;align-items:center;} /* garante clique */
+    /* cta hero ids pra teste */
+    #cta-whats-hero, #cta-pacotes-hero { pointer-events:auto }
+
     .badges{display:flex;gap:16px;align-items:center;margin-top:20px;color:rgba(255,255,255,.64);font-size:14px}
     .avatars{display:flex;margin-right:10px}
     .avatar{width:28px;height:28px;border-radius:999px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);margin-left:-8px}
 
-    /* seções */
     section{padding:56px 0;border-top:1px solid rgba(255,255,255,.08)}
     .muted{color:rgba(255,255,255,.65);font-size:14px}
 
@@ -85,11 +80,11 @@
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}@media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
     .tile{aspect-ratio:4/5;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
 
-    /* --- CTA final --- */
-    .final{position:relative;isolation:isolate;}
-    .final .panel{border:1px solid rgba(255,196,0,.4);background:rgba(255,255,255,.06);border-radius:22px;padding:26px;text-align:center;position:relative;z-index:2;}
+    .final{position:relative}
+    .final .panel{border:1px solid rgba(255,196,0,.4);background:rgba(255,255,255,.06);border-radius:22px;padding:26px;text-align:center}
+    /* overlay do CTA final continua visual mas NÃO intercepta clique */
     .final .overlay{position:absolute;inset:0;background:linear-gradient(45deg, rgba(255,106,0,.15), rgba(255,196,0,.08)); pointer-events:none; z-index:0;}
-    .final .inner{position:relative; z-index:2;}
+    .final .inner{position:relative; z-index:1;}
 
     .foot{padding:22px 0;border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.6);font-size:12px}
   </style>
@@ -102,7 +97,7 @@
         <a href="#servicos" class="muted">Pacotes</a>
         <a href="#processo" class="muted">Processo</a>
         <a href="#portfolio" class="muted">Portfólio</a>
-        <a href="#faq" class="muted">FAQ</a>
+        <a href="#faq" className="muted">FAQ</a>
       </nav>
       <a class="btn" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/sparkdesiign/">DM: QUERO VISUAL</a>
     </div>
@@ -113,12 +108,10 @@
       <h1>Design que <span class="accent">acende</span> marcas.</h1>
       <p class="lead">Identidades visuais e páginas focadas em conversão. Clareza, consistência e prova — sem firula.</p>
       <div class="cta-row">
-        <!-- 1º botão -->
-        <a id="cta-whats-hero" class="cta cta-hero" target="_blank" rel="noopener noreferrer" href="https://wa.me/5566996707924?text=QUERO%20VISUAL">
+        <a id="cta-whats-hero" class="cta" target="_blank" rel="noopener noreferrer" href="https://wa.me/5566996707924?text=QUERO%20VISUAL">
           Falar no DM (QUERO VISUAL)
         </a>
-        <!-- 2º botão -->
-        <a id="cta-pacotes-hero" class="cta secondary cta-hero" href="#servicos">Ver pacotes</a>
+        <a id="cta-pacotes-hero" class="cta secondary" href="#servicos">Ver pacotes</a>
       </div>
       <div class="badges">
         <div class="avatars"><div class="avatar"></div><div class="avatar"></div><div class="avatar"></div></div>
@@ -216,41 +209,13 @@
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // “testes” simples no navegador (ver console)
+    // testes simples no console — ajudam a validar se a âncora/URLs estão certas
     console.assert(document.querySelector('#cta-whats-hero[href="https://wa.me/5566996707924?text=QUERO%20VISUAL"]'), 'WhatsApp CTA missing');
     console.assert(document.querySelector('#cta-pacotes-hero[href="#servicos"]'), 'Pacotes anchor missing');
     console.assert(document.querySelector('a[href="https://www.instagram.com/sparkdesiign/"]'), 'Instagram CTA missing');
   </script>
 </body>
 </html>
-<script>
-  // Hard-fix dos CTAs do HERO no Chrome
-  (function () {
-    const whats = document.getElementById('cta-whats-hero');
-    const pacotes = document.getElementById('cta-pacotes-hero');
-
-    if (whats) {
-      whats.addEventListener('click', function (e) {
-        // força abrir em nova aba com noopener
-        window.open('https://wa.me/5566996707924?text=QUERO%20VISUAL', '_blank', 'noopener');
-      }, { passive: true });
-    }
-
-    if (pacotes) {
-      pacotes.addEventListener('click', function (e) {
-        // força rolar até a seção (em vez de depender do anchor)
-        e.preventDefault();
-        const el = document.querySelector('#servicos');
-        if (el && el.scrollIntoView) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-          // fallback
-          location.hash = '#servicos';
-        }
-      }, { passive: false });
-    }
-  })();
-</script>
 
 
 
